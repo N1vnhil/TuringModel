@@ -36,8 +36,10 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 void MainWindow::getInput() {
-    s = ui->inputBox->toPlainText();
+    pos = 0;
+    s = '.' + ui->inputBox->toPlainText();
     ui->screen->setText(s);
+    state = '0';
 }
 
 void MainWindow::add() {
@@ -128,13 +130,15 @@ void MainWindow::dot(){
 }
 
 void MainWindow::compute() {
-    // padding
-    QString src = QString(500, ' ') + s + QString(500, ' ');
-    int s_pos = pos + 500;
+    // is padding essential?
+
+    qDebug() << "computing...";
 
     if (state.unicode() - b.unicode() >= stateWidgets.size()) return;
 
     while(state != '#') {
+        qDebug() << "State:" << state << "Position:" << pos << "Tape:" << s;
+
         int stateIndex = state.unicode() - b.unicode();
         if (stateIndex < 0 || stateIndex >= stateWidgets.size()) break;
 
@@ -167,7 +171,6 @@ void MainWindow::compute() {
         }
 
         if(behave.length() == 1) s[pos + 1] = behave[0];
-
 
         if(mov[0] == 'L' && pos > 0) {
             swap(s[pos - 1], s[pos]);
