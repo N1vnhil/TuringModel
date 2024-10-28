@@ -1,0 +1,27 @@
+# ninja log v6
+7	1879	7518044895481701	demo_autogen/timestamp	252a73082d8687ad
+7	1879	7518044895481701	demo_autogen/mocs_compilation.cpp	252a73082d8687ad
+7	1879	7518044895481701	D:/projects/qt_demo/demo/build/Desktop_Qt_6_8_0_MinGW_64_bit-Release/demo_autogen/timestamp	252a73082d8687ad
+7	1879	7518044895481701	D:/projects/qt_demo/demo/build/Desktop_Qt_6_8_0_MinGW_64_bit-Release/demo_autogen/mocs_compilation.cpp	252a73082d8687ad
+1906	6676	7518044898054891	CMakeFiles/demo.dir/demo_autogen/mocs_compilation.cpp.obj	94455876a6b17b96
+1936	6751	7518044898345132	CMakeFiles/demo.dir/main.cpp.obj	9e50da253e67294a
+1976	8524	7518044898757764	CMakeFiles/demo.dir/mainwindow.cpp.obj	6ed1e654ef7a269e
+8525	8981	7518044964246668	demo.exe	fb52eb4c0adde2e9
+41	182	7518047576047459	CMakeFiles/clean.additional	30e2c863849131fd
+182	207	7518047577464983	clean	706119ba4f4f443c
+36	2134	7518047599379018	demo_autogen/timestamp	252a73082d8687ad
+36	2134	7518047599379018	demo_autogen/mocs_compilation.cpp	252a73082d8687ad
+36	2134	7518047599379018	D:/projects/qt_demo/demo/build/Desktop_Qt_6_8_0_MinGW_64_bit-Release/demo_autogen/timestamp	252a73082d8687ad
+36	2134	7518047599379018	D:/projects/qt_demo/demo/build/Desktop_Qt_6_8_0_MinGW_64_bit-Release/demo_autogen/mocs_compilation.cpp	252a73082d8687ad
+2135	7165	7518047601452970	CMakeFiles/demo.dir/demo_autogen/mocs_compilation.cpp.obj	94455876a6b17b96
+2157	7302	7518047601674279	CMakeFiles/demo.dir/main.cpp.obj	9e50da253e67294a
+2180	9069	7518047601904276	CMakeFiles/demo.dir/mainwindow.cpp.obj	6ed1e654ef7a269e
+9069	9648	7518047670793174	demo.exe	fb52eb4c0adde2e9
+34	524	7518066729496566	demo_autogen/timestamp	252a73082d8687ad
+34	524	7518066729496566	demo_autogen/mocs_compilation.cpp	252a73082d8687ad
+34	524	7518066729496566	D:/projects/qt_demo/demo/build/Desktop_Qt_6_8_0_MinGW_64_bit-Release/demo_autogen/timestamp	252a73082d8687ad
+34	524	7518066729496566	D:/projects/qt_demo/demo/build/Desktop_Qt_6_8_0_MinGW_64_bit-Release/demo_autogen/mocs_compilation.cpp	252a73082d8687ad
+532	1776	7518066730257628	CMakeFiles/demo.dir/main.cpp.obj	9e50da253e67294a
+524	1786	7518066730187582	CMakeFiles/demo.dir/demo_autogen/mocs_compilation.cpp.obj	94455876a6b17b96
+541	2228	7518066730350587	CMakeFiles/demo.dir/mainwindow.cpp.obj	6ed1e654ef7a269e
+2229	2374	7518066747227478	demo.exe	fb52eb4c0adde2e9
