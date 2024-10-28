@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include<cmath>
-#include<vector>
 #include<QLineEdit>
 #include<QDebug>
 
@@ -25,17 +24,24 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->computeButton, &QPushButton::clicked, this, &MainWindow::compute);
     connect(ui->addStateButton, &QPushButton::clicked, this, &MainWindow::add);
     connect(ui->delStateButton, &QPushButton::clicked, this, &MainWindow::del);
+    connect(ui->confirmButton, &QPushButton::clicked, this, &MainWindow::getInput);
 
     stateWidgets.clear();
     state = '0'; n_state = 0;
-    s = ".00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
+    // s = ".00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
+    s = "";
     pos = 0;
     ui->nState->setText(QChar(b.unicode() + n_state));
     ui->screen->setText(s);
 }
 
+void MainWindow::getInput() {
+    s = ui->inputBox->toPlainText();
+    ui->screen->setText(s);
+}
+
 void MainWindow::add() {
-    if(n_state == 10) return;
+    if(n_state == 9) return;
     n_state++;
 
     QGridLayout *newLayout = new QGridLayout();
@@ -122,30 +128,58 @@ void MainWindow::dot(){
 }
 
 void MainWindow::compute() {
+    // padding
+    QString src = QString(500, ' ') + s + QString(500, ' ');
+    int s_pos = pos + 500;
+
+    if (state.unicode() - b.unicode() >= stateWidgets.size()) return;
+
     while(state != '#') {
-        QWidget* temp = stateWidgets[state.unicode() - b.unicode()];
-        QChar idx = QChar(b.unicode() + n_state);
+        int stateIndex = state.unicode() - b.unicode();
+        if (stateIndex < 0 || stateIndex >= stateWidgets.size()) break;
+
+        QWidget* temp = stateWidgets[stateIndex];
+        if (!temp) break;
+
+        QString currentState = QString::number(stateIndex + 1);
         QString behave, mov, next;
 
+        if (pos + 1 >= s.length()) break;
+
+        QLineEdit* do1 = temp->findChild<QLineEdit*>(QString("do_1_state_%1").arg(currentState));
+        QLineEdit* do2 = temp->findChild<QLineEdit*>(QString("do_2_state_%1").arg(currentState));
+        QLineEdit* mov1 = temp->findChild<QLineEdit*>(QString("mov_1_state_%1").arg(currentState));
+        QLineEdit* mov2 = temp->findChild<QLineEdit*>(QString("mov_2_state_%1").arg(currentState));
+        QLineEdit* next1 = temp->findChild<QLineEdit*>(QString("next_1_state_%1").arg(currentState));
+        QLineEdit* next2 = temp->findChild<QLineEdit*>(QString("next_2_state_%1").arg(currentState));
+        if (!do1 || !do2 || !mov1 || !mov2 || !next1 || !next2) break;
+
         if(s[pos + 1] == '0') {
-            behave = temp->findChild<QLineEdit*>(QString("do_1_state_%1").arg(idx))->text(),
-                mov = temp->findChild<QLineEdit*>(QString("mov_1_state_%1").arg(idx))->text(),
-                next = temp->findChild<QLineEdit*>(QString("next_1_state_%1").arg(idx))->text();
+            behave = do1->text();
+            mov = mov1->text();
+            next = next1->text();
         } else if(s[pos + 1] == '1') {
-            behave = temp->findChild<QLineEdit*>(QString("do_2_state_%1").arg(idx))->text(),
-                mov = temp->findChild<QLineEdit*>(QString("mov_2_state_%1").arg(idx))->text(),
-                next = temp->findChild<QLineEdit*>(QString("next_2_state_%1").arg(idx))->text();
+            behave = do2->text();
+            mov = mov2->text();
+            next = next2->text();
+        } else {
+            break;
         }
 
         if(behave.length() == 1) s[pos + 1] = behave[0];
 
-        if(mov[0] == 'L' && pos > 0) {swap(s[pos - 1], s[pos]); --pos;}
-        else if(mov[0] == 'R' && pos < s.size() - 1) {swap(s[pos], s[pos + 1]); ++pos;}
 
-        int idx_next = next[0].unicode() - b.unicode();
-        if(idx_next >= 0 && idx_next <= n_state) state = next[0];
+        if(mov[0] == 'L' && pos > 0) {
+            swap(s[pos - 1], s[pos]);
+            --pos;
+        } else if(mov[0] == 'R' && pos < s.size() - 1) {
+            swap(s[pos], s[pos + 1]);
+            ++pos;
+        }
 
-        if(next[0] == '#') state = next[0];
+        int idx = next[0].unicode() - b.unicode();
+        if(next[0] == '#' || (idx >= 0 && idx < n_state)) state = next[0];
+        else break;
 
         ui->screen->setText(s);
     }

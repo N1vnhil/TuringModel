@@ -24,6 +24,7 @@ public:
     void compute();
     void add();
     void del();
+    void getInput();
 
 private:
     QVector<QWidget*> stateWidgets;

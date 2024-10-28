@@ -20,6 +20,7 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTextBrowser>
+#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -40,6 +41,9 @@ public:
     QHBoxLayout *stateNum;
     QLabel *label;
     QLabel *nState;
+    QTextEdit *inputBox;
+    QLabel *label_3;
+    QPushButton *confirmButton;
     QMenuBar *menubar;
     QMenu *menuAbout;
     QStatusBar *statusbar;
@@ -91,10 +95,19 @@ public:
 
         stateNum->addWidget(nState);
 
+        inputBox = new QTextEdit(centralwidget);
+        inputBox->setObjectName("inputBox");
+        inputBox->setGeometry(QRect(30, 440, 411, 151));
+        label_3 = new QLabel(centralwidget);
+        label_3->setObjectName("label_3");
+        label_3->setGeometry(QRect(30, 420, 51, 16));
+        confirmButton = new QPushButton(centralwidget);
+        confirmButton->setObjectName("confirmButton");
+        confirmButton->setGeometry(QRect(30, 600, 61, 21));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 1293, 21));
+        menubar->setGeometry(QRect(0, 0, 1293, 17));
         menuAbout = new QMenu(menubar);
         menuAbout->setObjectName("menuAbout");
         MainWindow->setMenuBar(menubar);
@@ -121,6 +134,8 @@ public:
         delStateButton->setText(QCoreApplication::translate("MainWindow", "DEL STATE", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "TOTAL STATES: ", nullptr));
         nState->setText(QCoreApplication::translate("MainWindow", "1", nullptr));
+        label_3->setText(QCoreApplication::translate("MainWindow", "INPUT", nullptr));
+        confirmButton->setText(QCoreApplication::translate("MainWindow", "CONFIRM", nullptr));
         menuAbout->setTitle(QCoreApplication::translate("MainWindow", "About", nullptr));
     } // retranslateUi
 
